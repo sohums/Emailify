@@ -1,0 +1,46 @@
+import csv 
+from datetime import date, timedelta
+import os
+import os.path
+import glob
+
+def write_to_CSV(mydict):
+	today = date.today()
+	today_str = today.strftime('%m%d%y')
+
+	# if file does not exist then create a new one
+	if not os.path.isfile('../data/'+ today_str):
+		with open('../data/'+ today_str + ".csv", 'wb') as csv_file:
+		    writer = csv.writer(csv_file)
+		    for key, value in mydict.items():
+		       writer.writerow([key, value])
+   	else:
+   		print("You have already run the program today")
+
+def read_from_CSV():
+	path, dirs, files = os.walk("../data/").next()
+	file_count = len(files)
+   	
+	prev_data = {}
+
+   	# check previous file closest to today
+   	if file_count > 2:
+   		files_path = os.path.join('../data/', '*')
+		most_recent_file = sorted(glob.iglob(files_path), key=os.path.getctime, reverse=True)[0]
+		prev_data = open_file(most_recent_file)
+
+   	else:
+   		print("No data to read from")
+
+   	return prev_data
+
+# opens the file and stores the data in a dictionary
+def open_file(filename):
+	data = {}
+	with open(filename, 'rb') as csv_file:
+		reader = csv.reader(csv_file)
+		data = dict(reader)
+	for key in data:
+		data[key] = int(data[key])
+
+	return data

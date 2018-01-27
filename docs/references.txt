@@ -1,0 +1,18 @@
+- Spotipy API https://github.com/plamere/spotipy
+
+- Spotipy API Documentation (I think this is a little outdated) http://spotipy.readthedocs.io/en/latest/
+
+- Spotify API Examples https://github.com/plamere/spotipy/tree/master/examples
+-> really useful cause I couldn't find out how to navigate the return data
+
+- Settning up credentials for Spotipy https://stackoverflow.com/questions/46966932/how-to-work-in-spotify-python-api
+-> Hardest part 
+
+ - Found progress bar at https://gist.github.com/89465127/5468929
+
+ - Writing/Reading to/from CSV file https://stackoverflow.com/questions/8685809/python-writing-a-dictionary-to-a-csv-file-with-one-line-for-every-key-value
+ 
+ - Date Time Stuff https://stackoverflow.com/questions/1712116/formatting-yesterdays-date-in-python
+
+ - Crontab Tutorial/Example
+ https://ole.michelsen.dk/blog/schedule-jobs-with-crontab-on-mac-osx.html
