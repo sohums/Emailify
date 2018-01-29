@@ -23,8 +23,14 @@ def read_from_CSV():
    	
 	prev_data = {}
 
+	# check for valid .csv file 
+	valid_prev_data = False
+	for file in files:
+		if ".csv" in file:
+			valid_prev_data = True
+
    	# check previous file closest to today
-   	if file_count > 2:
+   	if valid_prev_data:
    		files_path = os.path.join('../data/', '*')
 		most_recent_file = sorted(glob.iglob(files_path), key=os.path.getctime, reverse=True)[0]
 		prev_data = open_file(most_recent_file)
