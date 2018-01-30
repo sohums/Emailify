@@ -58,9 +58,9 @@ def get_artists_album_count(spotipy_instance, list_of_all_artists):
     for artist_name in list_of_all_artists:
         increment_progress_bar(bar)
         # print(artist_name)
-        artistInfo = get_artist_info(spotipy_instance, artist_name)
-        if artistInfo is not None:  
-            albums = get_artist_albums(spotipy_instance, artistInfo)
+        artist_info = get_artist_info(spotipy_instance, artist_name)
+        if artist_info is not None:  
+            albums = get_artist_albums(spotipy_instance, artist_info)
             # print(albums)
             album_count[artist_name] = len(albums)
         else:
