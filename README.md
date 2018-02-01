@@ -10,7 +10,7 @@ The following program is an emailer which notifies you of any new music released
 3. pip install spotipy (Spotify python API)
 4. Login or create a new Spotify developer account and create an application (https://beta.developer.spotify.com/dashboard/). You can call it whatever you want. Note down your application's client id and client secret.
 5. Insert your spotify username in authenticate.py
-6. Insert your client id and client secret which can be found in the application you created on the Spotify developer portal. 
+6. Insert your client id and client secret which can be found in the application you created on the Spotify developer portal in authenticate.py. 
 7. Type in email credentials in emailer.py (I recommmend creating a temporary email account to send emails from)
 8. Run the program whenever you want ($ python spot.py) or create a crontab to run the program daily. The commands to create the crontab in command line on a linux machine are shown below. Replace MINUTE, HOUR, and YOURFILEPATH with their respective values. Note that HOUR is in military/24 hour time.
 
