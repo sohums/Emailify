@@ -3,16 +3,16 @@ from spotipy.oauth2 import SpotifyClientCredentials
 
 def login():
 	
-	retList = []
+	ret_list = []
 
 	username = 'ENTER SPOTIFY USERNAME HERE'
 	clientId = ' ENTER CLIENT ID HERE'
-	clientSecret = 'ENTER CLIENT SECRET HERE' 
+	clientSecret = 'ENTER CLIENT SECRET HERE'  
 
-	client_credentials_manager = SpotifyClientCredentials(client_id=clientId, client_secret=clientSecret)
-	spotifyInstance = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+	client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
+	spotify_instance = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
-	retList.append(username)
-	retList.append(spotifyInstance)
+	ret_list.append(username)
+	ret_list.append(spotify_instance)
 
-	return retList
+	return ret_list
