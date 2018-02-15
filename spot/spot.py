@@ -24,5 +24,3 @@ artists_with_new_albums = get_artists_with_new_albums(prev_album_count, album_co
 
 # sends email if there is an artist with a new album
 notify_new_album(spot, artists_with_new_albums)
-
-print(artists_with_new_albums)
