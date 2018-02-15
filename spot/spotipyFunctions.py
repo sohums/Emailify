@@ -94,5 +94,6 @@ def notify_new_album(spotipy_instance, list_of_artists):
         for artist in list_of_artists:
             artist_id = get_artist_id(spotipy_instance, artist)
             send_email(artist, artist_id)
+        print("New music is available")
     else:
         print("No new albums")
