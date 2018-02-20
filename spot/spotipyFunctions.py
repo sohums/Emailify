@@ -62,7 +62,7 @@ def get_artists_album_count(spotipy_instance, list_of_all_artists):
         if artist_info is not None:  
             albums = get_artist_albums(spotipy_instance, artist_info)
             # print(albums)
-            album_count[artist_name] = len(albums)
+            album_count[artist_name] = str(len(albums)) + " " + str(albums)
         else:
             print("Can't find that artist!")
             album_count[artist_name] = -1
@@ -83,7 +83,7 @@ def get_artists_with_new_albums(prev_album_count, album_count):
     for item in album_count.items():
         artist = item[0]       
         if artist in album_count and artist in prev_album_count:
-            if album_count[artist] > prev_album_count[artist]:
+            if str(album_count[artist])[0] > str(prev_album_count[artist])[0]:
                 artists_with_new_albums.append(artist)
 
     return artists_with_new_albums

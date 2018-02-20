@@ -12,8 +12,9 @@ def write_to_CSV(mydict):
 	if not os.path.isfile('../data/'+ today_str):
 		with open('../data/'+ today_str + ".csv", 'wb') as csv_file:
 		    writer = csv.writer(csv_file)
-		    for key, value in mydict.items():
-		       writer.writerow([key, value])
+		    for key in sorted(mydict.iterkeys()):
+		       writer.writerow([key, mydict[key]])
+		       
    	else:
    		print("You have already run the program today")
 
@@ -47,6 +48,6 @@ def open_file(filename):
 		reader = csv.reader(csv_file)
 		data = dict(reader)
 	for key in data:
-		data[key] = int(data[key])
+		data[key] = int(data[key][0])
 
 	return data
