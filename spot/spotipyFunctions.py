@@ -6,7 +6,7 @@ from emailer import send_email
 def add_artists(spotipy_instance, tracks, set_artists):
     for i, item in enumerate(tracks['items']):
         track = item['track']
-        set_artists.add(str(track['artists'][0]['name']))
+        set_artists.add((track['artists'][0]['name']).encode('utf-8'))
 
 # iterates through users public playlists and adds all unique artists to list, returns a list of unique artists
 def parse_playlists_for_artists(spotipy_instance, username):
