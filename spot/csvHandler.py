@@ -14,11 +14,12 @@ def write_to_CSV(mydict):
 		    writer = csv.writer(csv_file)
 		    for key in sorted(mydict.iterkeys()):
 		       writer.writerow([key, mydict[key]])
-		       
-   	else:
-   		print("You have already run the program today")
 
 def read_from_CSV():
+	today = date.today()
+	today_str = today.strftime('%m%d%y')
+	today_filename = today_str + ".csv"
+
 	path, dirs, files = os.walk("../data/").next()
 	file_count = len(files)
    	
@@ -30,8 +31,12 @@ def read_from_CSV():
 		if ".csv" in file:
 			valid_prev_data = True
 
-   	# check previous file closest to today
-   	if valid_prev_data:
+	# check if file already exists
+   	if today_filename in files:
+   		print("You have already run the program today")
+   	
+	# check previous file closest to today
+   	elif valid_prev_data:
    		files_path = os.path.join('../data/', '*')
 		most_recent_file = sorted(glob.iglob(files_path), key=os.path.getctime, reverse=True)[0]
 		prev_data = open_file(most_recent_file)
