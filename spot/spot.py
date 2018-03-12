@@ -3,30 +3,30 @@ from authenticate import login
 from spotipyFunctions import parse_playlists_for_artists, get_artists_album_count, get_artists_with_new_albums, notify_new_album
 from csvHandler import write_to_CSV, read_from_CSV
 from helperFunctions import internet_available
-	
-login_information = login()
-username = login_information[0]
-spot = login_information[1] # the spotipy instance
 
-# reads in yesterdays data to compare and see if there are any differences in number of albums
-prev_album_count = read_from_CSV()
+if internet_available():	
 
-if internet_available():
-	if prev_album_count:
-		
-		# gets list of all artists from users public playlists
-		all_artists = parse_playlists_for_artists(spot, username)
+	login_information = login()
+	username = login_information[0]
+	spot = login_information[1] # the spotipy instance
 
-		# gets dictionary with the total number of albums for each artist
-		album_count = get_artists_album_count(spot, all_artists)
+	# reads in yesterdays data to compare and see if there are any differences in number of albums
+	prev_album_count = read_from_CSV()
 
-		# writes todays data to csv file
-		write_to_CSV(album_count)
+	# gets list of all artists from users public playlists
+	all_artists = parse_playlists_for_artists(spot, username)
 
-		# gets the list of artists with new albums
-		artists_with_new_albums = get_artists_with_new_albums(prev_album_count, album_count)
+	# gets dictionary with the total number of albums for each artist
+	album_count = get_artists_album_count(spot, all_artists)
 
-		# sends email if there is an artist with a new album
-		notify_new_album(spot, artists_with_new_albums)
+	# writes todays data to csv file
+	write_to_CSV(album_count)
+
+	# gets the list of artists with new albums
+	artists_with_new_albums = get_artists_with_new_albums(prev_album_count, album_count)
+
+	# sends email if there is an artist with a new album
+	notify_new_album(spot, artists_with_new_albums)
+
 else:
 	print("No internet connection at this time")
