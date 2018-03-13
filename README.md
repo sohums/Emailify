@@ -1,6 +1,6 @@
 # Emailify
 
-Do you hate missing out on music from favorite artists? I was and that's why I developed Emailify to notify me when there is new music released by my artists on Spotify.
+I got tired of missing out on new music. That's why I developed Emailify to notify me when there is new music released by my artists on Spotify.
 
 The following program is an emailer which notifies you of any new music released by your Spotify artists. It works by parsing your public playlists and getting all your artists from there. Then daily it compares number of albums by all of the artists in those playlists. If it detects a change then the program automatically emails you with a link to the artists profile.
 
