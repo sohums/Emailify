@@ -53,6 +53,7 @@ def open_file(filename):
 		reader = csv.reader(csv_file)
 		data = dict(reader)
 	for key in data:
-		data[key] = int(data[key][0])
+		# takes in just the number of albums at the beginning of the value (ex.Artist Name, 2 ['album1', 'album2'] -> 2)
+		data[key] = int(data[key][0]) 
 
 	return data
