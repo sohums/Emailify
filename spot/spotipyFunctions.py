@@ -63,7 +63,7 @@ def get_artists_album_count(spotipy_instance, list_of_all_artists):
             # print(albums)
             album_count[artist_name] = str(len(albums)) + " " + str(albums)
         else:
-            print("Can't find " + artist_name)
+            print("\nCan't find " + artist_name)
             album_count[artist_name] = -1
         # print(" ")
     bar.finish()
