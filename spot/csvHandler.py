@@ -33,14 +33,14 @@ def read_from_CSV():
 
 	# check if file already exists
    	if today_filename in files:
-   		print("You have already run the program today")
-   	
+   		print("You have already run the program today") 
+
 	# check previous file closest to today
    	elif valid_prev_data:
    		files_path = os.path.join('../data/', '*')
 		most_recent_file = sorted(glob.iglob(files_path), key=os.path.getctime, reverse=True)[0]
 		prev_data = open_file(most_recent_file)
-
+		
    	else:
    		print("No data to read from")
 

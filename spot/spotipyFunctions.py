@@ -42,7 +42,6 @@ def get_artist_albums(spotipy_instance, artist):
         results = spotipy_instance.next(results)
         albums.extend(results['items'])
     seen = set() # to avoid dups
-    # albums.sort(key=lambda album:album['name'].lower())
     for album in albums:
         name = album['name']
         # print(album['name'] + ": " + album['id'])
@@ -64,7 +63,7 @@ def get_artists_album_count(spotipy_instance, list_of_all_artists):
             # print(albums)
             album_count[artist_name] = str(len(albums)) + " " + str(albums)
         else:
-            print("Can't find that artist!")
+            print("Can't find " + artist_name)
             album_count[artist_name] = -1
         # print(" ")
     bar.finish()

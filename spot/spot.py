@@ -13,20 +13,23 @@ if internet_available():
 	# reads in yesterdays data to compare and see if there are any differences in number of albums
 	prev_album_count = read_from_CSV()
 
-	# gets list of all artists from users public playlists
-	all_artists = parse_playlists_for_artists(spot, username)
+	# checks if the program has run today
+	if prev_album_count:
 
-	# gets dictionary with the total number of albums for each artist
-	album_count = get_artists_album_count(spot, all_artists)
+		# gets list of all artists from users public playlists
+		all_artists = parse_playlists_for_artists(spot, username)
 
-	# writes todays data to csv file
-	write_to_CSV(album_count)
+		# gets dictionary with the total number of albums for each artist
+		album_count = get_artists_album_count(spot, all_artists)
 
-	# gets the list of artists with new albums
-	artists_with_new_albums = get_artists_with_new_albums(prev_album_count, album_count)
+		# writes todays data to csv file
+		write_to_CSV(album_count)
 
-	# sends email if there is an artist with a new album
-	notify_new_album(spot, artists_with_new_albums)
+		# gets the list of artists with new albums
+		artists_with_new_albums = get_artists_with_new_albums(prev_album_count, album_count)
+
+		# sends email if there is an artist with a new album
+		notify_new_album(spot, artists_with_new_albums)
 
 else:
 	print("No internet connection at this time")
