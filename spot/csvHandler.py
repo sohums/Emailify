@@ -54,6 +54,9 @@ def open_file(filename):
 		data = dict(reader)
 	for key in data:
 		# takes in just the number of albums at the beginning of the value (ex.Artist Name, 2 ['album1', 'album2'] -> 2)
-		data[key] = int(data[key][0]) 
+		try:
+			data[key] = int(data[key][0]) 
+		except ValueError:
+			data[key] = -1
 
 	return data
