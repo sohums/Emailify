@@ -1,7 +1,7 @@
 import spotipy
 from authenticate import login
 from spotipyFunctions import parse_playlists_for_artists, get_artists_album_count, get_artists_with_new_albums, notify_new_album
-from csvHandler import write_to_CSV, read_from_CSV
+from csvHandler import write_to_CSV, read_from_CSV, run_today
 from helperFunctions import internet_available
 
 if internet_available():	
@@ -14,7 +14,7 @@ if internet_available():
 	prev_album_count = read_from_CSV()
 
 	# checks if the program has run today
-	if prev_album_count:
+	if not run_today():
 
 		# gets list of all artists from users public playlists
 		all_artists = parse_playlists_for_artists(spot, username)

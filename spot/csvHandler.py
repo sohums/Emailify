@@ -31,12 +31,8 @@ def read_from_CSV():
 		if ".csv" in file:
 			valid_prev_data = True
 
-	# check if file already exists
-   	if today_filename in files:
-   		print("You have already run the program today") 
-
 	# check previous file closest to today
-   	elif valid_prev_data:
+   	if valid_prev_data:
    		files_path = os.path.join('../data/', '*')
 		most_recent_file = sorted(glob.iglob(files_path), key=os.path.getctime, reverse=True)[0]
 		prev_data = open_file(most_recent_file)
@@ -45,6 +41,21 @@ def read_from_CSV():
    		print("No data to read from")
 
    	return prev_data
+
+# checks if program has run today
+def run_today():
+	today = date.today()
+	today_str = today.strftime('%m%d%y')
+	today_filename = today_str + ".csv"
+
+	path, dirs, files = os.walk("../data/").next()
+	file_count = len(files)
+
+	if today_filename in files:
+		return True 
+
+	else:
+		return False
 
 # opens the file and stores the data in a dictionary
 def open_file(filename):
