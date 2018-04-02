@@ -15,8 +15,15 @@ def write_to_CSV(mydict):
 			writer = csv.writer(csv_file)
 			for key in sorted(mydict.iterkeys()):
 				try:
-					writer.writerow([key, mydict[key].split(",")[0], mydict[key][2::]])
-				except AttributeError:
+					if str(mydict[key][4]) == ',':
+						writer.writerow([key, mydict[key].split(",")[0], mydict[key][5::]])
+					if str(mydict[key][3]) == ',':
+						writer.writerow([key, mydict[key].split(",")[0], mydict[key][4::]])
+					elif str(mydict[key][2]) == ',':
+						writer.writerow([key, mydict[key].split(",")[0], mydict[key][3::]])
+					else:
+						writer.writerow([key, mydict[key].split(",")[0], mydict[key][2::]])
+				except TypeError:
 					writer.writerow([key, "-1", "N/A"])
 
 # gets album count from csv
