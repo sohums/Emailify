@@ -1,6 +1,7 @@
 from helperFunctions import increment_progress_bar
 from progress.bar import Bar
 from emailer import send_email
+from artist import Artist
 
 # adds all artists from playlist to a set
 def add_artists(spotipy_instance, tracks, set_artists):
@@ -49,9 +50,8 @@ def get_artist_albums(spotipy_instance, artist):
             seen.add(name.encode('utf-8'))
     return list(seen)
 
-# given a list of artists returns a dict with key being artist and value the number of albums they have
-def get_artists_album_count(spotipy_instance, list_of_all_artists):
-    album_count = {}
+def get_all_artists_info(spotipy_instance, list_of_all_artists):
+    all_artist_info = []
     print("Getting number of albums for all artists")
     bar = Bar('Loading...', max=len(list_of_all_artists), suffix='%(index)d/%(max)d - %(percent).1f%% - %(eta)ds')
     for artist_name in list_of_all_artists:
@@ -61,24 +61,31 @@ def get_artists_album_count(spotipy_instance, list_of_all_artists):
         if artist_info is not None:  
             albums = get_artist_albums(spotipy_instance, artist_info)
             # print(albums)
-            album_count[artist_name] = str(len(albums)) + "," + str(albums)
+            artist = Artist(artist_name, len(albums), albums)
+            all_artist_info.append(artist)
         else:
             print("\nCan't find " + artist_name)
-            album_count[artist_name] = -1
+            artist = Artist(artist_name, -1, [])
+            all_artist_info.append(artist)
         # print(" ")
     bar.finish()
     print("Done!\n")
 
-    return album_count
+    all_artist_info.sort(key=lambda artist: artist.name)
+
+    return all_artist_info
 
 # given artist name returns their spotify id
 def get_artist_id(spotipy_instance, artist_name):
     return get_artist_info(spotipy_instance, artist_name)['external_urls']['spotify']
 
 # given two dictionaries with artists and their album count returns artists with new albums
-def get_artists_with_new_albums(prev_album_count, album_count):
+def get_artists_with_new_albums(prev_artist_info, artist_info):
     artists_with_new_albums = []
     
+    prev_album_count = get_album_count(prev_artist_info)
+    album_count = get_album_count(artist_info)
+
     for item in album_count.items():
         artist = item[0]       
         if artist in album_count and artist in prev_album_count:
@@ -86,6 +93,15 @@ def get_artists_with_new_albums(prev_album_count, album_count):
                 artists_with_new_albums.append(artist)
 
     return artists_with_new_albums
+
+def get_album_count(artist_info):
+
+    album_count = {}
+    
+    for artist in artist_info:
+        album_count[artist.name] = artist.numAlbums
+
+    return album_count
 
 # given a list of artists sends emails w/ links to artists profile
 def notify_new_album(spotipy_instance, list_of_artists):

@@ -3,9 +3,10 @@ from datetime import date, timedelta
 import os
 import os.path
 import glob
+from artist import Artist
 
 # writes artist, album count, and albums to csv
-def write_to_CSV(mydict):
+def write_to_CSV(all_info):
 	today = date.today()
 	today_str = today.strftime('%y%m%d')
 
@@ -13,18 +14,8 @@ def write_to_CSV(mydict):
 	if not os.path.isfile('../data/'+ today_str):
 		with open('../data/'+ today_str + ".csv", 'wb') as csv_file:
 			writer = csv.writer(csv_file)
-			for key in sorted(mydict.iterkeys()):
-				try:
-					if str(mydict[key][4]) == ',':
-						writer.writerow([key, mydict[key].split(",")[0], mydict[key][5::]])
-					if str(mydict[key][3]) == ',':
-						writer.writerow([key, mydict[key].split(",")[0], mydict[key][4::]])
-					elif str(mydict[key][2]) == ',':
-						writer.writerow([key, mydict[key].split(",")[0], mydict[key][3::]])
-					else:
-						writer.writerow([key, mydict[key].split(",")[0], mydict[key][2::]])
-				except TypeError:
-					writer.writerow([key, "-1", "N/A"])
+			for artist in all_info:
+				writer.writerow([artist.name, artist.numAlbums, artist.albums])
 
 # gets album count from csv
 def read_from_CSV():
@@ -34,10 +25,12 @@ def read_from_CSV():
 
 	path, dirs, files = os.walk("../data/").next()
 	file_count = len(files)
-   	
-	prev_data = {}
+
+	prev_artist_info = []
 
 	all_csv_files = []
+
+	valid_prev_data = False
 
 	# check for valid .csv file 
 	for file in files:
@@ -48,12 +41,16 @@ def read_from_CSV():
 	all_csv_files = sorted(all_csv_files, reverse=True)
 
 	# check previous file closest to today
-   	if valid_prev_data:
-		prev_data = open_file("../data/" + all_csv_files[0] + ".csv")
+	if valid_prev_data:
+		with open("../data/" + all_csv_files[0] + ".csv") as csv_file:
+			reader = csv.reader(csv_file)
+			for row in reader:
+				artist = Artist(row[0], row[1], row[2])
+				prev_artist_info.append(artist)
    	else:
    		print("No data to read from")
 
-   	return prev_data
+   	return prev_artist_info
 
 # checks if program has run today
 def run_today():
@@ -68,18 +65,3 @@ def run_today():
 		return True 
 	else:
 		return False
-
-# opens the file and stores the data in a dictionary
-def open_file(filename):
-	data = {}
-
-	file = open(filename)
-	csv_file = csv.reader(file)
-
-	for row in csv_file:
-		try:
-			data[row[0]] = row[1]
-		except ValueError:
-			data[row[0]] = -1
-
-	return data
