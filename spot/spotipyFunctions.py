@@ -27,7 +27,7 @@ def parse_playlists_for_artists(spotipy_instance, username):
 
 # given artist name returns all info related to artist 
 def get_artist_info(spotipy_instance, name):
-    results = spotipy_instance.search(q='artist:' + name, type='artist')
+    results = spotipy_instance.search(q='artist:' + str(name, 'utf-8'), type='artist')
     items = results['artists']['items']
     if len(items) > 0:
         return items[0]
@@ -64,7 +64,7 @@ def get_all_artists_info(spotipy_instance, list_of_all_artists):
             artist = Artist(artist_name, len(albums), albums)
             all_artist_info.append(artist)
         else:
-            print("\nCan't find " + artist_name)
+            print("\nCan't find " + str(artist_name))
             artist = Artist(artist_name, -1, [])
             all_artist_info.append(artist)
         # print(" ")

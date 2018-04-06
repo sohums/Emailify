@@ -1,6 +1,6 @@
 import sys
 import time
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 from progress.bar import Bar # sudo pip install progress
 from emailer import send_email
 
@@ -20,7 +20,9 @@ def increment_progress_bar(bar):
 
 def internet_available():
     try:
-        urllib2.urlopen('http://216.58.192.142', timeout=1)
+        urllib.request.urlopen('http://216.58.192.142', timeout=1)
         return True
-    except urllib2.URLError as err: 
+    except urllib.error.URLError as err:
         return False
+
+        import sys

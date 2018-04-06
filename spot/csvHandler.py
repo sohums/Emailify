@@ -12,7 +12,7 @@ def write_to_CSV(all_info):
 
 	# if file does not exist then create a new one
 	if not os.path.isfile('../data/'+ today_str):
-		with open('../data/'+ today_str + ".csv", 'wb') as csv_file:
+		with open('../data/'+ today_str + ".csv", 'w') as csv_file:
 			writer = csv.writer(csv_file)
 			for artist in all_info:
 				writer.writerow([artist.name, artist.numAlbums, artist.albums])
@@ -23,7 +23,7 @@ def read_from_CSV():
 	today_str = today.strftime('%y%m%d')
 	today_filename = today_str + ".csv"
 
-	path, dirs, files = os.walk("../data/").next()
+	path, dirs, files = next(os.walk("../data/"))
 	file_count = len(files)
 
 	prev_artist_info = []
@@ -47,10 +47,10 @@ def read_from_CSV():
 			for row in reader:
 				artist = Artist(row[0], row[1], row[2])
 				prev_artist_info.append(artist)
-   	else:
-   		print("No data to read from")
+	else:
+		print("No data to read from")
 
-   	return prev_artist_info
+	return prev_artist_info
 
 # checks if program has run today
 def run_today():
@@ -58,7 +58,7 @@ def run_today():
 	today_str = today.strftime('%y%m%d')
 	today_filename = today_str + ".csv"
 
-	path, dirs, files = os.walk("../data/").next()
+	path, dirs, files = next(os.walk("../data/"))
 
 	if today_filename in files:
 		print("The program has already run today")

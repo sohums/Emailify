@@ -24,6 +24,6 @@ def send_email(artist, artistLink):
         server.login(gmail_email, gmail_pwd)
         server.sendmail(FROM, TO, message)
         server.close()
-        print 'Successfully sent email'
+        print("Successfully sent email")
     except:
-        print "Failed to send email"
+        print("Failed to send email")
