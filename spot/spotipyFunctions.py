@@ -7,7 +7,7 @@ from artist import Artist
 def add_artists(spotipy_instance, tracks, set_artists):
     for i, item in enumerate(tracks['items']):
         track = item['track']
-        set_artists.add((track['artists'][0]['name']).encode('utf-8'))
+        set_artists.add((track['artists'][0]['name']))
 
 # iterates through users public playlists and adds all unique artists to list, returns a list of unique artists
 def parse_playlists_for_artists(spotipy_instance, username):
@@ -27,7 +27,7 @@ def parse_playlists_for_artists(spotipy_instance, username):
 
 # given artist name returns all info related to artist 
 def get_artist_info(spotipy_instance, name):
-    results = spotipy_instance.search(q='artist:' + str(name, 'utf-8'), type='artist')
+    results = spotipy_instance.search(q='artist:' + name, type='artist')
     items = results['artists']['items']
     if len(items) > 0:
         return items[0]
