@@ -48,7 +48,7 @@ def get_artist_albums(spotipy_instance, artist):
         # print(album['name'] + ": " + album['id'])
         if name not in seen:
             seen.add(name.encode('utf-8'))
-    return list(seen)
+    return list(sorted(seen))
 
 def get_all_artists_info(spotipy_instance, list_of_all_artists):
     all_artist_info = []
