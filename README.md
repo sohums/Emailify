@@ -16,6 +16,7 @@ The following program is an emailer which notifies you of any new music released
 
     $ env EDITOR=nano crontab -e
     
-    LANG=it_IT.UTF-8
+    LANG=it_IT.UTF-8 
+
     MINUTE HOUR * * * cd YOURFILEPATH/Emailify/spot && /Library/Frameworks/Python.framework/Versions/3.4/bin/python3 spot.py
 
