@@ -24,5 +24,3 @@ def internet_available():
         return True
     except urllib.error.URLError as err:
         return False
-
-        import sys

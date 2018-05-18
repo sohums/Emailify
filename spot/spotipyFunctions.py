@@ -1,7 +1,7 @@
 from helperFunctions import increment_progress_bar
 from progress.bar import Bar
 from emailer import send_email
-from artist import Artist
+from artist import Artist, newMusicArtist
 
 # adds all artists from playlist to a set
 def add_artists(spotipy_instance, tracks, set_artists):
@@ -47,7 +47,8 @@ def get_artist_albums(spotipy_instance, artist):
         name = album['name']
         # print(album['name'] + ": " + album['id'])
         if name not in seen:
-            seen.add(name.encode('utf-8'))
+            # seen.add(name.encode('utf-8'))
+            seen.add(name)
     return list(sorted(seen))
 
 def get_all_artists_info(spotipy_instance, list_of_all_artists):

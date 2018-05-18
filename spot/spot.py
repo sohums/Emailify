@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import spotipy
 from authenticate import login
 from spotipyFunctions import parse_playlists_for_artists, get_all_artists_info, get_artists_with_new_albums, notify_new_album
