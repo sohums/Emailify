@@ -3,11 +3,11 @@ import smtplib
 def send_email(artist, artistLink):
 
     # Credentials for email account that sends emails to you
-    gmail_email = 'GMAIL EMAIL'
-    gmail_pwd = 'GMAIL PASSWORD'
+    gmail_email = 'EMAIL'
+    gmail_pwd = 'EMAIL_PWD'
 
     # The email account where you want to receive new music notifications
-    recipient = 'YOUR EMAIL HERE'    
+    recipient = 'EMAIL'    
     
     FROM = gmail_email
     TO = recipient if type(recipient) is list else [recipient]
