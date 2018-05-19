@@ -16,3 +16,6 @@
 
  - Crontab Tutorial/Example
  https://ole.michelsen.dk/blog/schedule-jobs-with-crontab-on-mac-osx.html
+
+ - String list to literal list
+ https://stackoverflow.com/questions/1894269/convert-string-representation-of-list-to-list

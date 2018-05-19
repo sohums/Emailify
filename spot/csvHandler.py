@@ -3,6 +3,8 @@ from datetime import date, timedelta
 import os
 import os.path
 import glob
+import ast
+
 from artist import Artist
 
 # writes artist, album count, and albums to csv
@@ -45,7 +47,7 @@ def read_from_CSV():
 		with open("../data/" + all_csv_files[0] + ".csv") as csv_file:
 			reader = csv.reader(csv_file)
 			for row in reader:
-				artist = Artist(row[0], row[1], row[2])
+				artist = Artist(row[0], row[1], ast.literal_eval(row[2]))  # ast converts string list to type list
 				prev_artist_info.append(artist)
 	else:
 		print("No data to read from")

@@ -4,15 +4,15 @@ TODO
 - for JR JR it isn't returning the correct artist and therefore albums
 - can I do something about this?
 
-2) test CSV functions thoroughly 
+2) TEST TEST TEST
 
-3) TEST TEST TEST
+3) not sending email in office
 
-5) not sending email in office
+4) threading for concurrent api calls
 
-6) Khalid new album released
-['American Teen', 'American Teen (Japan Version)']
-shouldn't account for japanese version
+5) email name of album (set difference between new set and old set)
+
+6) connection error catch thingy
 
 KINDA-FIXED
 1) if album names have weird character encoding we get an error (unicode issue)
@@ -24,3 +24,5 @@ FIXED
 2) Circular dependent imports 
 
 3) fix readFromCSV when there are no items in /data
+
+4) test csv functions

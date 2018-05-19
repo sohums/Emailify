@@ -1,18 +1,18 @@
 import smtplib
 
-def send_email(artist, artistLink):
+def send_email(artist, artist_link, new_album):
 
     # Credentials for email account that sends emails to you
-    gmail_email = 'EMAIL'
-    gmail_pwd = 'EMAIL_PWD'
+    gmail_email = 'GMAIL EMAIL'
+    gmail_pwd = 'GMAIL PASSWORD'
 
     # The email account where you want to receive new music notifications
-    recipient = 'EMAIL'    
+    recipient = 'YOUR EMAIL HERE'    
     
     FROM = gmail_email
     TO = recipient if type(recipient) is list else [recipient]
     SUBJECT = artist + " has released a new album!"
-    TEXT = "A new album from " + artist + " just released! Check it out at: " + artistLink
+    TEXT = "A new album from " + artist + " just released! The album name is " + new_album + ". Check it out at: " + artist_link
 
     # Prepare actual message
     message = """From: %s\nTo: %s\nSubject: %s\n\n%s
