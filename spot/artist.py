@@ -18,9 +18,11 @@ class Artist:
 
 class newMusicArtist:
 
-	def __init__(self, name, newAlbum):
+	def __init__(self, name, artistId, newAlbum, newAlbumArt):
 		self.name = name
+		self.artistId = artistId
 		self.newAlbum = newAlbum
+		self.newAlbumArt = newAlbumArt
 
 	def __str__(self):
 		
@@ -28,5 +30,6 @@ class newMusicArtist:
 		
 		retString += "Name: " + self.name + "\n"
 		retString += "New album: " + str(self.newAlbum) + "\n"
+		retString += "New album art url: " + str(self.newAlbumArt)
 
 		return retString

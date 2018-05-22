@@ -1,6 +1,6 @@
 import smtplib
 
-def send_email(artist, artist_link, new_album):
+def send_email(newMusicArtist):
 
     # Credentials for email account that sends emails to you
     gmail_email = 'GMAIL EMAIL'
@@ -11,8 +11,8 @@ def send_email(artist, artist_link, new_album):
     
     FROM = gmail_email
     TO = recipient if type(recipient) is list else [recipient]
-    SUBJECT = artist + " has released a new album!"
-    TEXT = "A new album from " + artist + " just released! The album name is " + new_album + ". Check it out at: " + artist_link
+    SUBJECT = newMusicArtist.name + " has released a new album!"
+    TEXT = "A new album from " + newMusicArtist.name + " just released! The album name is " + newMusicArtist.newAlbum + ". Check it out at: " + newMusicArtist.artistId + ". " + newMusicArtist.newAlbumArt
 
     # Prepare actual message
     message = """From: %s\nTo: %s\nSubject: %s\n\n%s

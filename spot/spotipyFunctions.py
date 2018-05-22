@@ -81,7 +81,7 @@ def get_artist_id(spotipy_instance, artist_name):
 	return get_artist_info(spotipy_instance, artist_name)['external_urls']['spotify']
 
 # given two dictionaries with artists and their album count returns artists with new albums
-def get_artists_with_new_albums(prev_artist_info, artist_info):
+def get_artists_with_new_albums(spotipy_instance, prev_artist_info, artist_info):
 	artists_with_new_albums = []
 	
 	prev_album_count = get_album_count(prev_artist_info)
@@ -96,7 +96,10 @@ def get_artists_with_new_albums(prev_artist_info, artist_info):
 					if prev_artist.name == artist.name:
 						new_album = get_new_album_name(prev_artist.albums, artist.albums)
 
-				artist_with_new_music = newMusicArtist(artist.name, new_album)
+				artist_id = get_artist_id(spotipy_instance, artist.name)
+				new_album_art = get_album_art(spotipy_instance, new_album)
+
+				artist_with_new_music = newMusicArtist(artist.name, artist_id, new_album, new_album_art)
 				artists_with_new_albums.append(artist_with_new_music)
 
 	return artists_with_new_albums
@@ -119,8 +122,13 @@ def get_album_count(artist_info):
 def notify_new_album(spotipy_instance, list_of_artists):
 	if len(list_of_artists) > 0:
 		for newMusicArtist in list_of_artists:
-			artist_id = get_artist_id(spotipy_instance, newMusicArtist.name)
-			send_email(newMusicArtist.name, artist_id, newMusicArtist.newAlbum)
+			send_email(newMusicArtist)
 			print("New music is available from " + newMusicArtist.name)
 	else:
 		print("No new albums")
+
+def get_album_art(spotipy_instance, album_name):
+	results = spotipy_instance.search(q='album:' + album_name, type='album')
+	image_url = results['albums']['items'][0]['images'][0]['url'] # change second num to get different pic size (640x640, 300x300, or 64x64)
+	
+	return image_url
