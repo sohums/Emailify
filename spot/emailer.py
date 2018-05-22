@@ -12,7 +12,9 @@ def send_email(newMusicArtist):
     FROM = gmail_email
     TO = recipient if type(recipient) is list else [recipient]
     SUBJECT = newMusicArtist.name + " has released a new album!"
-    TEXT = "A new album from " + newMusicArtist.name + " just released! The album name is " + newMusicArtist.newAlbum + ". Check it out at: " + newMusicArtist.artistId + ". " + newMusicArtist.newAlbumArt
+    TEXT = "A new album from " + newMusicArtist.name + " just released! The album name is "
+    + newMusicArtist.newAlbum + ". Check it out at: " + newMusicArtist.artistId 
+    + ". \n" + newMusicArtist.newAlbumArt
 
     # Prepare actual message
     message = """From: %s\nTo: %s\nSubject: %s\n\n%s
