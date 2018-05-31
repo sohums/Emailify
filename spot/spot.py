@@ -5,10 +5,10 @@ from authenticate import credentials
 from spotipyFunctions import parse_playlists_for_artists, get_all_artists_info, get_artists_with_new_albums, notify_new_album
 from csvHandler import write_to_CSV, read_from_CSV, del_prev_files, run_today
 from helperFunctions import internet_available
+from input import username
 
 if internet_available():	
 
-	username = 'ENTER SPOTIFY USERNAME HERE'
 	spot = credentials() # the spotipy instance
 
 	# reads in yesterdays data to compare and see if there are any differences in number of albums
