@@ -61,9 +61,9 @@ def get_all_artists_info(spotipy_instance, list_of_all_artists):
 		artist_info = get_artist_info(spotipy_instance, artist_name)
 		if artist_info is not None:  
 			albums = get_artist_albums(spotipy_instance, artist_info)
-			# print(albums)
-			artist = Artist(artist_name, len(albums), albums)
-			all_artist_info.append(artist)
+			if len(albums) < 100: # if artist has more than 100 albums ignore artist
+				artist = Artist(artist_name, len(albums), albums)
+				all_artist_info.append(artist)
 		else:
 			print("\nCan't find " + str(artist_name))
 			artist = Artist(artist_name, -1, [])
@@ -89,8 +89,7 @@ def get_artists_with_new_albums(spotipy_instance, prev_artist_info, artist_info)
 
 	for artist in artist_info:
 		if artist.name in album_count and artist.name in prev_album_count:
-			if str(album_count[artist.name])[0] > str(prev_album_count[artist.name])[0]:
-
+			if int(album_count[artist.name]) > int(prev_album_count[artist.name]):
 				# get diff between two lists
 				for prev_artist in prev_artist_info:
 					if prev_artist.name == artist.name:
@@ -128,7 +127,10 @@ def notify_new_album(spotipy_instance, list_of_artists):
 		print("No new albums")
 
 def get_album_art(spotipy_instance, album_name):
+
 	results = spotipy_instance.search(q='album:' + album_name, type='album')
-	image_url = results['albums']['items'][0]['images'][0]['url'] # change second num to get different pic size (640x640, 300x300, or 64x64)
-	
-	return image_url
+	if len(results['albums']['items']) > 0:
+		image_url = results['albums']['items'][0]['images'][0]['url'] # change second num to get different pic size (640x640, 300x300, or 64x64)
+		return image_url
+	else:
+		return 'No image available'
