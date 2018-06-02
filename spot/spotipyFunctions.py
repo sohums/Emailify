@@ -61,7 +61,7 @@ def get_all_artists_info(spotipy_instance, list_of_all_artists):
 		artist_info = get_artist_info(spotipy_instance, artist_name)
 		if artist_info is not None:  
 			albums = get_artist_albums(spotipy_instance, artist_info)
-			if len(albums) < 100: # if artist has more than 100 albums ignore artist
+			if len(albums) < 200: # if artist has more than 200 albums ignore artist
 				artist = Artist(artist_name, len(albums), albums)
 				all_artist_info.append(artist)
 		else:
@@ -133,4 +133,4 @@ def get_album_art(spotipy_instance, album_name):
 		image_url = results['albums']['items'][0]['images'][0]['url'] # change second num to get different pic size (640x640, 300x300, or 64x64)
 		return image_url
 	else:
-		return 'No image available'
+		return "No image available"
