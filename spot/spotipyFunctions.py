@@ -122,7 +122,6 @@ def notify_new_album(spotipy_instance, list_of_artists):
 	if len(list_of_artists) > 0:
 		for newMusicArtist in list_of_artists:
 			send_email(newMusicArtist)
-			print("New music is available from " + newMusicArtist.name)
 	else:
 		print("No new albums")
 
