@@ -120,8 +120,7 @@ def get_album_count(artist_info):
 # given a list of artists sends emails w/ links to artists profile
 def notify_new_album(spotipy_instance, list_of_artists):
 	if len(list_of_artists) > 0:
-		for newMusicArtist in list_of_artists:
-			send_email(newMusicArtist)
+		send_email(list_of_artists)
 	else:
 		print("No new albums")
 
