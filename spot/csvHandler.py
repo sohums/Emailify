@@ -26,11 +26,8 @@ def read_from_CSV():
 	today_filename = today_str + ".csv"
 
 	path, dirs, files = next(os.walk("../data/"))
-
 	prev_artist_info = []
-
 	all_csv_files = []
-
 	valid_prev_data = False
 
 	# check for valid .csv file 
@@ -57,7 +54,6 @@ def read_from_CSV():
 def del_prev_files():
 
 	path, dirs, files = next(os.walk("../data/"))
-
 	all_csv_files = []
 
 	for file in files:
@@ -66,7 +62,6 @@ def del_prev_files():
 			all_csv_files.append(file.split(".")[0])
 
 	all_csv_files = sorted(all_csv_files, reverse=True)
-
 	file_count = len(all_csv_files)
 	
 	# while more than three files delete last file

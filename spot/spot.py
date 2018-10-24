@@ -37,13 +37,10 @@ if internet_available():
 			notify_new_album(spot, artists_with_new_albums)
 		
 		except ConnectionResetError:
-
 			print("Error establishing connection (Connection Reset Error)")
 
 		except ConnectionError:
-			
 			print("Error establishing connection (Connection Error)")
-
 else:
 	
 	print("No internet connection at this time")
