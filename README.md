@@ -18,3 +18,5 @@ The following program is an emailer which notifies you of any new music released
 `$ crontab -e`
 
     MINUTE HOUR * * * cd YOURFILEPATH/Emailify/spot && YOURPATHTOPYTHON3/python3 spot.py
+
+![alt text](screenshot.png "High level overview of how the program works")
