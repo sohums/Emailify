@@ -57,7 +57,6 @@ def get_all_artists_info(spotipy_instance, list_of_all_artists):
 	bar = Bar('Loading...', max=len(list_of_all_artists), suffix='%(index)d/%(max)d - %(percent).1f%% - %(eta)ds')
 	for artist_name in list_of_all_artists:
 		increment_progress_bar(bar)
-		# print(artist_name)
 		artist_info = get_artist_info(spotipy_instance, artist_name)
 		if artist_info is not None:  
 			albums = get_artist_albums(spotipy_instance, artist_info)
@@ -68,7 +67,6 @@ def get_all_artists_info(spotipy_instance, list_of_all_artists):
 			print("\nCan't find " + str(artist_name))
 			artist = Artist(artist_name, -1, [])
 			all_artist_info.append(artist)
-		# print(" ")
 	bar.finish()
 	print("Done!\n")
 
@@ -105,7 +103,6 @@ def get_artists_with_new_albums(spotipy_instance, prev_artist_info, artist_info)
 
 # given two lists of album names gets the difference (the new album)
 def get_new_album_name(prev_artist_albums, artist_albums):
-	
 	return list(set(artist_albums)-set(prev_artist_albums))[0]
  
 # given a list of artist objects returns a dictionary with their album count
@@ -125,7 +122,6 @@ def notify_new_album(spotipy_instance, list_of_artists):
 		print("No new albums")
 
 def get_album_art(spotipy_instance, album_name):
-
 	results = spotipy_instance.search(q='album:' + album_name, type='album')
 	if len(results['albums']['items']) > 0:
 		image_url = results['albums']['items'][0]['images'][0]['url'] # change second num to get different pic size (640x640, 300x300, or 64x64)
