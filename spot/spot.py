@@ -7,7 +7,7 @@ from csvHandler import write_to_CSV, read_from_CSV, del_prev_files, run_today
 from helperFunctions import internet_available
 from input import username
 
-if internet_available():	
+if internet_available():
 
 	spot = credentials() # the spotipy instance
 
@@ -41,6 +41,9 @@ if internet_available():
 
 		except ConnectionError:
 			print("Error establishing connection (Connection Error)")
+
+		except OSError:
+			print("OSError: [Errno 50] Network is down")
 else:
 	
 	print("No internet connection at this time")
