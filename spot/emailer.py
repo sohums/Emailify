@@ -33,3 +33,4 @@ def send_email(list_of_artists):
 		print("Successfully sent email")
 	except:
 		print("Failed to send email")
+		print(TEXT)
