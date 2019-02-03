@@ -15,9 +15,6 @@ The following program is an emailer which notifies you of any new music released
 8. Type in email username in input.py to send emails from (I recommend creating a temporary email account to send emails from). Then setup email password as an environment variable ('email\_from\_pwd')
 9. Run the program whenever you want ($ python3 spot.py) or create a crontab to run the program daily. The commands to create the crontab in command line on a Mac are shown below. Replace MINUTE, HOUR, and YOURFILEPATH with their respective values. Note that HOUR is in military/24 hour time
 
-`$ env EDITOR=nano crontab -e`
+`$ crontab -e`
 
-
-    LANG=it_IT.UTF-8 
-
-    MINUTE HOUR * * * cd YOURFILEPATH/Emailify/spot && /Library/Frameworks/Python.framework/Versions/3.4/bin/python3 spot.py
+    MINUTE HOUR * * * cd YOURFILEPATH/Emailify/spot && YOURPATHTOPYTHON3/python3 spot.py
