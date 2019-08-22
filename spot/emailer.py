@@ -31,6 +31,7 @@ def send_email(list_of_artists):
 		server.sendmail(FROM, TO, message)
 		server.close()
 		print("Successfully sent email")
-	except:
+	except Exception as e:
+		print(str(e))
 		print("Failed to send email")
 		print(TEXT)
