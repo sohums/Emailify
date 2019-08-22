@@ -22,7 +22,6 @@ def parse_playlists_for_artists(spotipy_instance, username):
 			while tracks['next']:
 				tracks = spotipy_instance.next(tracks)
 				add_artists(spotipy_instance, tracks, artists)
-	
 	return list(artists)
 
 # given artist name returns all info related to artist 
@@ -38,18 +37,19 @@ def get_artist_info(spotipy_instance, name):
 def get_artist_albums(spotipy_instance, artist):
 	albums = []
 	results = spotipy_instance.artist_albums(artist['id'], album_type='album')
-	albums.extend(results['items'])
-	while results['next']:
-		results = spotipy_instance.next(results)
+	if results:
 		albums.extend(results['items'])
-	seen = set() # to avoid dups
-	for album in albums:
-		name = album['name']
-		# print(album['name'] + ": " + album['id'])
-		if name not in seen:
-			# seen.add(name.encode('utf-8'))
-			seen.add(name)
-	return list(sorted(seen))
+		while results['next']:
+			results = spotipy_instance.next(results)
+			albums.extend(results['items'])
+		seen = set() # to avoid dups
+		for album in albums:
+			name = album['name']
+			if name not in seen:
+				seen.add(name)
+		return list(sorted(seen))
+	else:
+		print('No albums for {}'.format(artist))
 
 def get_all_artists_info(spotipy_instance, list_of_all_artists):
 	all_artist_info = []
@@ -60,7 +60,7 @@ def get_all_artists_info(spotipy_instance, list_of_all_artists):
 		artist_info = get_artist_info(spotipy_instance, artist_name)
 		if artist_info is not None:  
 			albums = get_artist_albums(spotipy_instance, artist_info)
-			if len(albums) < 200: # if artist has more than 200 albums ignore artist
+			if albums and len(albums) < 200: # if artist has more than 200 albums ignore artist
 				artist = Artist(artist_name, len(albums), albums)
 				all_artist_info.append(artist)
 		else:
