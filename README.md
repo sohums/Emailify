@@ -33,3 +33,4 @@ To Do
 * Reduce api calls / threading
 * Logging
 * Better/more accurate search
+* Fix ascii encode error for albums that are in a different language (Japanese text causing error)
