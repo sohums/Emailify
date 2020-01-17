@@ -3,7 +3,7 @@
 import spotipy
 from authenticate import credentials
 from spotipyFunctions import parse_playlists_for_artists, get_all_artists_info, get_artists_with_new_albums
-from csvHandler import write_to_CSV, read_from_CSV, del_prev_files, run_today
+from csvHandler import write_to_CSV, read_from_CSV, del_extra_files, run_today
 from helperFunctions import internet_available
 from emailer import send_email
 from input import username
@@ -24,7 +24,7 @@ if internet_available():
 			all_artist_info = get_all_artists_info(spot, all_artists)
 
 			# deletes extra .csv files if there are more than three
-			del_prev_files()
+			del_extra_files()
 
 			# gets the list of artists with new albums
 			artists_with_new_albums = get_artists_with_new_albums(spot, prev_artist_info, all_artist_info)

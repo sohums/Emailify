@@ -51,7 +51,7 @@ def read_from_CSV():
 	return prev_artist_info
 
 # deletes extra .csv files if there are more than three
-def del_prev_files():
+def del_extra_files():
 	path, dirs, files = next(os.walk("../data/"))
 	all_csv_files = []
 
