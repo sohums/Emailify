@@ -1,6 +1,5 @@
 from helperFunctions import increment_progress_bar
 from progress.bar import Bar
-from emailer import send_email
 from artist import Artist, newMusicArtist
 
 # adds all artists from playlist to a set
@@ -113,13 +112,6 @@ def get_album_count(artist_info):
 		album_count[artist.name] = artist.numAlbums
 
 	return album_count
-
-# given a list of artists sends emails w/ links to artists profile
-def notify_new_album(spotipy_instance, list_of_artists):
-	if len(list_of_artists) > 0:
-		send_email(list_of_artists)
-	else:
-		print("No new albums")
 
 def get_album_art(spotipy_instance, album_name):
 	results = spotipy_instance.search(q='album:' + album_name, type='album')

@@ -2,7 +2,6 @@ import smtplib
 from input import email_to, email_from, email_from_pwd
 
 def send_email(list_of_artists):
-
 	FROM = email_from
 	TO = email_to if type(email_to) is list else [email_to]
 
@@ -31,7 +30,9 @@ def send_email(list_of_artists):
 		server.sendmail(FROM, TO, message)
 		server.close()
 		print("Successfully sent email")
+		return True
 	except Exception as e:
 		print(str(e))
 		print("Failed to send email")
 		print(TEXT)
+		return False
