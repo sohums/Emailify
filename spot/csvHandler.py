@@ -82,3 +82,12 @@ def run_today():
         return True
     else:
         return False
+
+def data_not_present():
+    path, dirs, files = next(os.walk("../data/"))
+    csv_file_count = 0
+
+    for file in files:
+        if ".csv" in file:
+            csv_file_count += 1
+    return True if csv_file_count < 1 else False

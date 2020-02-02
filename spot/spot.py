@@ -3,7 +3,7 @@
 import spotipy
 from authenticate import credentials
 from spotipyFunctions import parse_playlists_for_artists, get_all_artists_info, get_artists_with_new_albums
-from csvHandler import write_to_CSV, read_from_CSV, del_extra_files, run_today
+from csvHandler import write_to_CSV, read_from_CSV, del_extra_files, run_today, data_not_present
 from helperFunctions import internet_available
 from emailer import send_email
 from input import username
@@ -23,20 +23,21 @@ if internet_available():
             # gets list with all artist information for today
             all_artist_info = get_all_artists_info(spot, all_artists)
 
-            # deletes extra .csv files if there are more than three
-            del_extra_files()
-
             # gets the list of artists with new albums
             artists_with_new_albums = get_artists_with_new_albums(
                 spot, prev_artist_info, all_artist_info)
 
-            # sends email if there is an artist with a new album
-            if len(artists_with_new_albums) > 0:
+            if data_not_present():
+                write_to_CSV(all_artist_info)
+            elif artists_with_new_albums is not None:
                 email_sent = send_email(artists_with_new_albums)
                 if email_sent:
                     write_to_CSV(all_artist_info)
             else:
                 print("No new albums")
+
+            # deletes extra .csv files if there are more than three
+            del_extra_files()
 
         except ConnectionResetError:
             print("Error establishing connection (Connection Reset Error)")
