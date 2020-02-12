@@ -8,17 +8,17 @@ def send_email(list_of_artists):
 
     if len(list_of_artists) == 1:
         newMusicArtist = list_of_artists[0]
-        SUBJECT = newMusicArtist.name + ' has released a new album!'
-        TEXT = str('A new album from ' + newMusicArtist.name + ' just released! The album name is '
-                + newMusicArtist.newAlbum + '. \nCheck it out at: ' + newMusicArtist.artistId
-                + '. \nAlbum artwork: ' + newMusicArtist.newAlbumArt)
+        SUBJECT =  '{} has released a new album!'.format(newMusicArtist.name)
+        TEXT += 'A new album from {} just released! The album name is {}.\n'.format(newMusicArtist.name, newMusicArtist.newAlbum)
+        TEXT += 'Check it out at: {}\n'.format(newMusicArtist.artistId)
+        TEXT += 'Album artwork: {}'.format(newMusicArtist.newAlbumArt)
     else:
         SUBJECT = 'New music from your artists on Spotify!'
         TEXT = ''
         for newMusicArtist in list_of_artists:
-            TEXT += str('A new album from ' + newMusicArtist.name + ' just released! The album name is '
-                    + newMusicArtist.newAlbum + '. \nCheck it out at: ' + newMusicArtist.artistId
-                    + '. \nAlbum artwork: ' + newMusicArtist.newAlbumArt + '\n\n')
+            TEXT += 'A new album from {} just released! The album name is {}.\n'.format(newMusicArtist.name, newMusicArtist.newAlbum)
+            TEXT += 'Check it out at: {}\n'.format(newMusicArtist.artistId)
+            TEXT += 'Album artwork: {}\n\n'.format(newMusicArtist.newAlbumArt)
 
     # Prepare actual message
     message = """From: %s\nTo: %s\nSubject: %s\n\n%s
