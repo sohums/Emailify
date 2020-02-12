@@ -28,7 +28,7 @@ def send_email(list_of_artists):
         server.ehlo()
         server.starttls()
         server.login(email_from, email_from_pwd)
-        server.sendmail(FROM, TO, message)
+        server.sendmail(FROM, TO, message.encode('utf8'))
         server.close()
         print("Successfully sent email")
         return True
