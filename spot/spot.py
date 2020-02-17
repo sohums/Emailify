@@ -29,7 +29,7 @@ if internet_available():
 
             if data_not_present():
                 write_to_CSV(all_artist_info)
-            elif artists_with_new_albums is not None:
+            elif len(artists_with_new_albums) >= 1:
                 email_sent = send_email(artists_with_new_albums)
                 if email_sent:
                     write_to_CSV(all_artist_info)
