@@ -21,18 +21,17 @@ if internet_available():
             all_artists = parse_playlists_for_artists(spot, username)
 
             # gets list with all artist information for today
-            all_artist_info = get_all_artists_info(spot, all_artists)
+            curr_artist_info = get_all_artists_info(spot, all_artists)
 
             # gets the list of artists with new albums
-            artists_with_new_albums = get_artists_with_new_albums(
-                spot, prev_artist_info, all_artist_info)
+            artists_with_new_albums = get_artists_with_new_albums(spot, prev_artist_info, curr_artist_info)
 
             if data_not_present():
-                write_to_CSV(all_artist_info)
+                write_to_CSV(prev_artist_info, curr_artist_info)
             elif len(artists_with_new_albums) >= 1:
                 email_sent = send_email(artists_with_new_albums)
                 if email_sent:
-                    write_to_CSV(all_artist_info)
+                    write_to_CSV(prev_artist_info, curr_artist_info)
             else:
                 print("No new albums")
 

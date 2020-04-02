@@ -7,9 +7,11 @@ import ast
 from artist import Artist
 
 # writes artist, album count, and albums to csv
-def write_to_CSV(all_info):
+def write_to_CSV(prev_info, curr_info):
     today = date.today()
     today_str = today.strftime('%y%m%d')
+
+    all_info = merge_info(prev_info, curr_info)
 
     # if file does not exist then create a new one
     if not os.path.isfile('../data/' + today_str):
@@ -91,3 +93,19 @@ def data_not_present():
         if '.csv' in file:
             csv_file_count += 1
     return True if csv_file_count < 1 else False
+
+def merge_info(prev_info, curr_info):
+    prev_info = convert_to_dict(prev_info)
+    curr_info = convert_to_dict(curr_info)
+
+    all_info = []
+    for artist, info in curr_info.items():
+        if artist in prev_info:
+            albums = list(set(prev_info[artist]['albums'] + info['albums']))
+            all_info.append(Artist(artist, len(albums), albums))
+        else:
+            all_info.append(Artist(artist, info['numAlbums'], info['albums']))
+    return all_info
+
+def convert_to_dict(info):
+    return {artist.name: {'numAlbums':artist.numAlbums, 'albums':artist.albums} for artist in info}
