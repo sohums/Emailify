@@ -21,16 +21,4 @@ The following program is an emailer which notifies you of any new music released
 
 High level overview of how the program works
 
-![alt text](screenshot.png "High level overview of how the program works")
-
-To Do
------
-
-* HTML format for email / Inline album artwork
-* Add songs to new playlist that you can clear
-* Get album id
-* Tests
-* Reduce api calls / threading
-* Logging
-* Better/more accurate search
-* Fix ascii encode error for albums that are in a different language (Japanese text causing error)
+![alt text](screenshot.png)
