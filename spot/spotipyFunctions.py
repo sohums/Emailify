@@ -1,7 +1,8 @@
+import logging
+
+from artist import Artist, newMusicArtist
 from helperFunctions import increment_progress_bar
 from progress.bar import Bar
-from artist import Artist, newMusicArtist
-import logging
 
 # adds all artists from playlist to a set
 def add_artists(spotipy_instance, tracks, set_artists):

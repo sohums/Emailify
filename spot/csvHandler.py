@@ -1,10 +1,11 @@
+import ast
 import csv
-from datetime import date, timedelta
+import glob
 import os
 import os.path
-import glob
-import ast
+
 from artist import Artist
+from datetime import date, timedelta
 
 # writes artist, album count, and albums to csv
 def write_to_CSV(prev_info, curr_info):

@@ -1,7 +1,6 @@
 import smtplib
 from input import email_to, email_from, email_from_pwd
 
-
 def send_email(list_of_artists):
     FROM = email_from
     TO = email_to if type(email_to) is list else [email_to]
