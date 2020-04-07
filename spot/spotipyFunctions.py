@@ -1,6 +1,7 @@
 from helperFunctions import increment_progress_bar
 from progress.bar import Bar
 from artist import Artist, newMusicArtist
+import logging
 
 # adds all artists from playlist to a set
 def add_artists(spotipy_instance, tracks, set_artists):
@@ -62,7 +63,7 @@ def get_all_artists_info(spotipy_instance, list_of_all_artists):
                 artist = Artist(artist_name, len(albums), albums)
                 all_artist_info.append(artist)
         else:
-            print("\nCan't find " + str(artist_name))
+            logging.info('Failed to find artist: {}'.format(artist_name))
             artist = Artist(artist_name, -1, [])
             all_artist_info.append(artist)
     bar.finish()

@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 
 import spotipy
+import logging
+
 from authenticate import credentials
 from spotipyFunctions import parse_playlists_for_artists, get_all_artists_info, get_artists_with_new_albums
 from csvHandler import write_to_CSV, read_from_CSV, del_extra_files, run_today, data_not_present
 from helperFunctions import internet_available
 from emailer import send_email
 from input import username
+
+logging.basicConfig(filename='info.log', level=logging.INFO, format='%(asctime)s %(message)s')
 
 if internet_available():
     spot = credentials()  # the spotipy instance
@@ -46,3 +50,5 @@ if internet_available():
             print("OSError: [Errno 50] Network is down")
 else:
     print("No internet connection at this time")
+
+logging.info('---------------')
