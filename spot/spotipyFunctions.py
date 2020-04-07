@@ -17,7 +17,7 @@ def parse_playlists_for_artists(spotipy_instance, username):
     for playlist in playlists['items']:
         if playlist['owner']['id'] == username:
             # print 'number of songs:', playlist['tracks']['total']
-            results = spotipy_instance.user_playlist(username, playlist['id'],fields="tracks,next")
+            results = spotipy_instance.user_playlist(username, playlist['id'],fields='tracks,next')
             tracks = results['tracks']
             add_artists(spotipy_instance, tracks, artists)
             while tracks['next']:
@@ -53,7 +53,7 @@ def get_artist_albums(spotipy_instance, artist):
 
 def get_all_artists_info(spotipy_instance, list_of_all_artists):
     all_artist_info = []
-    print("Getting number of albums for all artists")
+    print('Getting number of albums for all artists')
     bar = Bar('Loading...', max=len(list_of_all_artists), suffix='%(index)d/%(max)d - %(percent).1f%% - %(eta)ds')
     for artist_name in list_of_all_artists:
         increment_progress_bar(bar)
@@ -68,7 +68,7 @@ def get_all_artists_info(spotipy_instance, list_of_all_artists):
             artist = Artist(artist_name, -1, [])
             all_artist_info.append(artist)
     bar.finish()
-    print("Done!\n")
+    print('Done!\n')
 
     all_artist_info.sort(key=lambda artist: artist.name) # Sort by artist name
 
@@ -116,4 +116,4 @@ def get_album_art(spotipy_instance, album_name):
     if len(results['albums']['items']) > 0:
         image_url = results['albums']['items'][0]['images'][0]['url'] # change second num to get different pic size (640x640, 300x300, or 64x64)
         return image_url
-    return "No image available"
+    return 'No image available'

@@ -37,18 +37,18 @@ if internet_available():
                 if email_sent:
                     write_to_CSV(prev_artist_info, curr_artist_info)
             else:
-                print("No new albums")
+                print('No new albums')
 
             # deletes extra .csv files if there are more than three
             del_extra_files()
 
         except ConnectionResetError:
-            print("Error establishing connection (Connection Reset Error)")
+            print('Error establishing connection (Connection Reset Error)')
         except ConnectionError:
-            print("Error establishing connection (Connection Error)")
+            print('Error establishing connection (Connection Error)')
         except OSError:
-            print("OSError: [Errno 50] Network is down")
+            print('OSError: [Errno 50] Network is down')
 else:
-    print("No internet connection at this time")
+    print('No internet connection at this time')
 
 logging.info('---------------')

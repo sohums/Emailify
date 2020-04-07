@@ -5,9 +5,9 @@ class Artist:
         self.albums = albums
 
     def __str__(self):
-        retString = "Name: " + self.name + "\n"
-        retString += "Number of albums: " + str(self.numAlbums) + "\n"
-        retString += "Albums: " + str(self.albums)
+        retString = 'Name: ' + self.name + '\n'
+        retString += 'Number of albums: ' + str(self.numAlbums) + '\n'
+        retString += 'Albums: ' + str(self.albums)
         return retString
 
 class newMusicArtist:
@@ -18,7 +18,7 @@ class newMusicArtist:
         self.newAlbumArt = newAlbumArt
 
     def __str__(self):
-        retString = "Name: " + self.name + "\n"
-        retString += "New album: " + str(self.newAlbum) + "\n"
-        retString += "New album art url: " + str(self.newAlbumArt)
+        retString = 'Name: ' + self.name + '\n'
+        retString += 'New album: ' + str(self.newAlbum) + '\n'
+        retString += 'New album art url: ' + str(self.newAlbumArt)
         return retString
