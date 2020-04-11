@@ -1,9 +1,9 @@
 import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials
-from input import client_id, client_secret
+
+from input import username
 
 def credentials():
-    client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
-    spotify_instance = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+    scope = 'user-library-read' # add extra scopes w/ spaces
+    token = spotipy.util.prompt_for_user_token(username, scope)
 
-    return spotify_instance
+    return spotipy.Spotify(auth=token)

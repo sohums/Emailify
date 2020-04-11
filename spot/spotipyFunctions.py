@@ -4,25 +4,13 @@ from artist import Artist, newMusicArtist
 from helperFunctions import increment_progress_bar
 from progress.bar import Bar
 
-# adds all artists from playlist to a set
-def add_artists(spotipy_instance, tracks, set_artists):
-    for i, item in enumerate(tracks['items']):
-        track = item['track']
-        set_artists.add((track['artists'][0]['name']))
-
-# iterates through users public playlists and adds all unique artists to list, returns a list of unique artists
-def parse_playlists_for_artists(spotipy_instance, username):
-    playlists = spotipy_instance.user_playlists(username)
+def get_all_artists_names(spotipy_instance):
     artists = set()
-    for playlist in playlists['items']:
-        if playlist['owner']['id'] == username:
-            # print 'number of songs:', playlist['tracks']['total']
-            results = spotipy_instance.user_playlist(username, playlist['id'],fields='tracks,next')
-            tracks = results['tracks']
-            add_artists(spotipy_instance, tracks, artists)
-            while tracks['next']:
-                tracks = spotipy_instance.next(tracks)
-                add_artists(spotipy_instance, tracks, artists)
+    saved_song_limit = 10_000
+    for i in range(0, saved_song_limit, 50):
+        track_results = spotipy_instance.current_user_saved_tracks(limit=50, offset=i)
+        for item in track_results['items']:
+            artists.add(item['track']['artists'][0]['name'])
     return list(artists)
 
 # given artist name returns all info related to artist
