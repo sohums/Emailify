@@ -1,4 +1,6 @@
+import logging
 import smtplib
+
 from input import email_to, email_from, email_from_pwd
 
 def send_email(list_of_artists):
@@ -33,5 +35,6 @@ def send_email(list_of_artists):
     except Exception as e:
         print(str(e))
         print('Failed to send email')
+        logging.info(TEXT)
         print(TEXT)
         return False
