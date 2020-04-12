@@ -13,6 +13,51 @@ def get_all_artists_names(spotipy_instance):
             artists.add(item['track']['artists'][0]['name'])
     return list(artists)
 
+def get_all_artists_info(spotipy_instance, list_of_all_artists):
+    all_artist_info = []
+    print('Getting number of albums for all artists')
+    bar = Bar('Loading...', max=len(list_of_all_artists), suffix='%(index)d/%(max)d - %(percent).1f%% - %(eta)ds')
+    for artist_name in list_of_all_artists:
+        increment_progress_bar(bar)
+        artist_info = get_artist_info(spotipy_instance, artist_name)
+        if artist_info is not None:
+            albums = get_artist_albums(spotipy_instance, artist_info)
+            if albums and len(albums) < 200: # if artist has more than 200 albums ignore artist
+                artist = Artist(artist_name, len(albums), albums)
+                all_artist_info.append(artist)
+        else:
+            logging.info('Failed to find artist: {}'.format(artist_name))
+            artist = Artist(artist_name, -1, [])
+            all_artist_info.append(artist)
+    bar.finish()
+    print('Done!\n')
+
+    all_artist_info.sort(key=lambda artist: artist.name) # Sort by artist name
+
+    return all_artist_info
+
+# given two dictionaries with artists and their album count returns artists with new albums
+def get_artists_with_new_albums(spotipy_instance, prev_artist_info, artist_info):
+    artists_with_new_albums = []
+    prev_album_count = get_album_count(prev_artist_info)
+    album_count = get_album_count(artist_info)
+
+    for artist in artist_info:
+        if artist.name in album_count and artist.name in prev_album_count:
+            if int(album_count[artist.name]) > int(prev_album_count[artist.name]):
+                # get diff between two lists
+                for prev_artist in prev_artist_info:
+                    if prev_artist.name == artist.name:
+                        new_album = get_new_album_name(prev_artist.albums, artist.albums)
+
+                artist_id = get_artist_id(spotipy_instance, artist.name)
+                new_album_art = get_album_art(spotipy_instance, new_album)
+
+                artist_with_new_music = newMusicArtist(artist.name, artist_id, new_album, new_album_art)
+                artists_with_new_albums.append(artist_with_new_music)
+
+    return artists_with_new_albums
+
 # given artist name returns all info related to artist
 def get_artist_info(spotipy_instance, name):
     results = spotipy_instance.search(q='artist:' + name, type='artist')
@@ -39,65 +84,20 @@ def get_artist_albums(spotipy_instance, artist):
     else:
         print('No albums for {}'.format(artist))
 
-def get_all_artists_info(spotipy_instance, list_of_all_artists):
-    all_artist_info = []
-    print('Getting number of albums for all artists')
-    bar = Bar('Loading...', max=len(list_of_all_artists), suffix='%(index)d/%(max)d - %(percent).1f%% - %(eta)ds')
-    for artist_name in list_of_all_artists:
-        increment_progress_bar(bar)
-        artist_info = get_artist_info(spotipy_instance, artist_name)
-        if artist_info is not None:
-            albums = get_artist_albums(spotipy_instance, artist_info)
-            if albums and len(albums) < 200: # if artist has more than 200 albums ignore artist
-                artist = Artist(artist_name, len(albums), albums)
-                all_artist_info.append(artist)
-        else:
-            logging.info('Failed to find artist: {}'.format(artist_name))
-            artist = Artist(artist_name, -1, [])
-            all_artist_info.append(artist)
-    bar.finish()
-    print('Done!\n')
-
-    all_artist_info.sort(key=lambda artist: artist.name) # Sort by artist name
-
-    return all_artist_info
-
-# given artist name returns their spotify id
-def get_artist_id(spotipy_instance, artist_name):
-    return get_artist_info(spotipy_instance, artist_name)['external_urls']['spotify']
-
-# given two dictionaries with artists and their album count returns artists with new albums
-def get_artists_with_new_albums(spotipy_instance, prev_artist_info, artist_info):
-    artists_with_new_albums = []
-    prev_album_count = get_album_count(prev_artist_info)
-    album_count = get_album_count(artist_info)
-
-    for artist in artist_info:
-        if artist.name in album_count and artist.name in prev_album_count:
-            if int(album_count[artist.name]) > int(prev_album_count[artist.name]):
-                # get diff between two lists
-                for prev_artist in prev_artist_info:
-                    if prev_artist.name == artist.name:
-                        new_album = get_new_album_name(prev_artist.albums, artist.albums)
-
-                artist_id = get_artist_id(spotipy_instance, artist.name)
-                new_album_art = get_album_art(spotipy_instance, new_album)
-
-                artist_with_new_music = newMusicArtist(artist.name, artist_id, new_album, new_album_art)
-                artists_with_new_albums.append(artist_with_new_music)
-
-    return artists_with_new_albums
-
-# given two lists of album names gets the difference (the new album)
-def get_new_album_name(prev_artist_albums, artist_albums):
-    return list(set(artist_albums)-set(prev_artist_albums))[0]
-
 # given a list of artist objects returns a dictionary with their album count
 def get_album_count(artist_info):
     album_count = {}
     for artist in artist_info:
         album_count[artist.name] = artist.numAlbums
     return album_count
+
+# given two lists of album names gets the difference (the new album)
+def get_new_album_name(prev_artist_albums, artist_albums):
+    return list(set(artist_albums)-set(prev_artist_albums))[0]
+
+# given artist name returns their spotify id
+def get_artist_id(spotipy_instance, artist_name):
+    return get_artist_info(spotipy_instance, artist_name)['external_urls']['spotify']
 
 def get_album_art(spotipy_instance, album_name):
     results = spotipy_instance.search(q='album:' + album_name, type='album')
