@@ -63,7 +63,8 @@ def get_artist_info(spotipy_instance, name):
     results = spotipy_instance.search(q='artist:' + name, type='artist')
     items = results['artists']['items']
     if len(items) > 0:
-        return items[0]
+        if items[0]['name'] == name:
+            return items[0]
     return None
 
 # returns list of all albums given artist name
