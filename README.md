@@ -17,9 +17,12 @@ The following program is an emailer which notifies you of any new music released
 
     `export SPOTIPY_REDIRECT_URI='http://localhost/'`
 
-6. Type in email username in input.py to send emails from (I recommend creating a separate email account to send emails from). Then setup email password as an environment variable ('email\_from\_pwd')
-7. Run the program whenever you want ($ python3 spot.py) or create a crontab to run the program daily. The commands to create the crontab in command line on a Mac are shown below. Replace MINUTE, HOUR, and YOURFILEPATH with their respective values. Note that HOUR is in military/24 hour time
+6. Try and run the program you should be prompted to open a URL in your browser. Enter the URL and then paste the URL you are forwarded back into the terminal.
+7. Type in email username in input.py to send emails from (I recommend creating a separate email account to send emails from). Then setup email password as an environment variable ('email\_from\_pwd')
+8. Run the program whenever you want ($ python3 spot.py) or create a crontab to run the program daily. The commands to create the crontab in command line on a Mac are shown below. Replace MINUTE, HOUR, and YOURFILEPATH with their respective values. Note that HOUR is in military/24 hour time
 
 `$ crontab -e`
 
     MINUTE HOUR * * * cd YOURFILEPATH/Emailify/spot && YOURPATHTOPYTHON3/python3 spot.py
+
+9. If you are running the program via cron you may want to place your environment variables in the crontab file.
