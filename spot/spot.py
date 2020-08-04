@@ -18,6 +18,7 @@ if internet_available():
     prev_artist_info = read_from_CSV()
 
     if not run_today():
+        logging.info('Running')
         try:
             # gets list of all artists from users public playlists
             all_artists = get_all_artists_names(spot)
@@ -29,6 +30,7 @@ if internet_available():
             artists_with_new_albums = get_artists_with_new_albums(spot, prev_artist_info, curr_artist_info)
 
             if data_not_present():
+                logging.info('Ran program for the first time')
                 write_to_CSV(prev_artist_info, curr_artist_info)
             elif len(artists_with_new_albums) >= 1:
                 email_sent = send_email(artists_with_new_albums)

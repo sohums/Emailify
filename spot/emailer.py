@@ -23,6 +23,7 @@ def send_email(list_of_artists):
     # Prepare actual message
     message = """From: %s\nTo: %s\nSubject: %s\n\n%s
 	""" % (FROM, ", ".join(TO), SUBJECT, TEXT)
+    logging.info(message)
     try:
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.ehlo()
@@ -30,11 +31,12 @@ def send_email(list_of_artists):
         server.login(email_from, email_from_pwd)
         server.sendmail(FROM, TO, message.encode('utf8'))
         server.close()
+        logging.info('Successfully sent email')
         print('Successfully sent email')
         return True
     except Exception as e:
         print(str(e))
         print('Failed to send email')
-        logging.info(TEXT)
+        logging.info('Failed to send email')
         print(TEXT)
         return False
